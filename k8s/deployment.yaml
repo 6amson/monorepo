@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monorepo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: monorepo
+  template:
+    metadata:
+      labels:
+        app: monorepo
+    spec:
+      containers:
+        - name: monorepo
+          image: ${ECR_REGISTRY}/monorepo:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monorepo
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: monorepo

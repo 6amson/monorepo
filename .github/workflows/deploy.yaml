@@ -2,20 +2,23 @@ name: Deploy monorepo to EKS
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
   pull_request:
-    branches: [main]
+    branches: 
+      - main
 
 env:
-  AWS_REGION: us-east-1 # Change to your region
-  EKS_CLUSTER: thisEKS # Change to your cluster name
+  AWS_REGION: us-east-1  # Change to your region
+  EKS_CLUSTER: your-cluster-name  # Change to your cluster name
   APP_NAME: monorepo
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v4
 
       # AWS credentials setup
@@ -73,5 +76,5 @@ jobs:
             selector:
               app: monorepo
           EOF
-
+          
           kubectl rollout status deployment/monorepo
