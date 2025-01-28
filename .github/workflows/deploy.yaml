@@ -10,7 +10,7 @@ on:
 
 env:
   AWS_REGION: us-east-1  # Change to your region
-  EKS_CLUSTER: your-cluster-name  # Change to your cluster name
+  EKS_CLUSTER: thisEKS  # Change to your cluster name
   APP_NAME: monorepo
 
 jobs:
