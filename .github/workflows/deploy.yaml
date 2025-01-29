@@ -1,80 +1,40 @@
-name: Deploy monorepo to EKS
+name: Deploy to EKS
 
 on:
   push:
-    branches: 
-      - main
+    branches: [ main ]
   pull_request:
-    branches: 
-      - main
+    branches: [ main ]
 
 env:
-  AWS_REGION: us-east-1  # Change to your region
-  EKS_CLUSTER: thisEKS  # Change to your cluster name
-  APP_NAME: monorepo
+  AWS_REGION: us-east-1
+  EKS_CLUSTER: thisEks
+  ECR_REPOSITORY: monorepo
+  ECR_REGISTRY: 340752829568.dkr.ecr.us-east-1.amazonaws.com
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     
     steps:
-      # Checkout the repository
       - uses: actions/checkout@v4
-
-      # AWS credentials setup
+      
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
-      # Connect to EKS
+      
       - name: Update kube config
         run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
-
-      # Deploy to Kubernetes
+      
+      # Now using the separate k8s files
       - name: Deploy to Kubernetes
         run: |
-          cat << EOF | kubectl apply -f -
-          apiVersion: apps/v1
-          kind: Deployment
-          metadata:
-            name: monorepo
-          spec:
-            replicas: 3
-            selector:
-              matchLabels:
-                app: monorepo
-            template:
-              metadata:
-                labels:
-                  app: monorepo
-              spec:
-                containers:
-                  - name: monorepo
-                    image: ${{ secrets.ECR_REGISTRY }}/monorepo:latest
-                    ports:
-                      - containerPort: 3000
-                    resources:
-                      limits:
-                        cpu: "1"
-                        memory: "1Gi"
-                      requests:
-                        cpu: "500m"
-                        memory: "512Mi"
-          ---
-          apiVersion: v1
-          kind: Service
-          metadata:
-            name: monorepo
-          spec:
-            type: LoadBalancer
-            ports:
-              - port: 80
-                targetPort: 3000
-            selector:
-              app: monorepo
-          EOF
+          # Apply both files
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
           
+          # Check deployment status
           kubectl rollout status deployment/monorepo
