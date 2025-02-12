@@ -1,8 +1,6 @@
-## N:B: As of when this READ.ME was updated, the resources that powers this flow has been suspended to avoid incurring compute bills.
-# To visualize a successful deployment, check the commits for those with successful deployments and consider the logs.
+## N:B: As of when this READ.ME was updated, the resources that powers this flow has been suspended to avoid incurring compute bills. To visualize a successful deployment, check the commits for those with successful deployments and consider the logs.
 
-
- EKS Deployment Workflow
+# EKS Deployment Workflow
 1. Introduction This document outlines the setup and workflow for deploying a containerized application on Amazon Elastic Kubernetes Service (EKS). The solution demonstrates infrastructure automation, application deployment, and scalability.
 
 2. Objectives
