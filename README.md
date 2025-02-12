@@ -1,4 +1,5 @@
 ## N:B: As of when this READ.ME was updated, the resources that powers this flow has been suspended to avoid incurring compute bills.
+# To visualize a successful deployment, check the commits for those with successful deployments and consider the logs.
 
 
  EKS Deployment Workflow
