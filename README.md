@@ -1,3 +1,6 @@
+## N:B: As of when this READ.ME was updated, the resources that powers this flow has been suspended to avoid incurring compute bills.
+
+
  EKS Deployment Workflow
 1. Introduction This document outlines the setup and workflow for deploying a containerized application on Amazon Elastic Kubernetes Service (EKS). The solution demonstrates infrastructure automation, application deployment, and scalability.
 
@@ -11,7 +14,6 @@ Components:
 Amazon EKS Cluster: Provisioned with Kubernetes control plane.
 Elastic Load Balancer: Routes traffic to the application.
 ECR (Elastic Container Registry): Stores container images.
-N:B: Node Groups - Managed nodes (EC2 instances) for running application pods were not included in the setup to avoid incurring compute bills.
 Cluster Details:
 Cluster Name: thisEKS
 ECR Repository: monorepo
