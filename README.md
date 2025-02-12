@@ -1,5 +1,5 @@
  EKS Deployment Workflow
-1. Introduction This document outlines the setup and workflow for deploying a containerized application on Amazon Elastic Kubernetes Service (EKS) as part of Mono HQ DevOps assessment. The solution demonstrates infrastructure automation, application deployment, and scalability.
+1. Introduction This document outlines the setup and workflow for deploying a containerized application on Amazon Elastic Kubernetes Service (EKS). The solution demonstrates infrastructure automation, application deployment, and scalability.
 
 2. Objectives
 Deploy a containerized application using EKS.
